@@ -36,23 +36,54 @@ describe Board do
 
     describe " #game_over" do
         context "When the board is NOT full" do 
-            it "The game is NOT over" do 
+            it "The game is NOT over with empty board" do 
                 expect(board.game_over(red_circle)).to be false
+            end
+            before do 
+                board.instance_variable_set(:@grid, [
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle]
+                ])
+            end
+
+            it "game is NOT over with full board" do 
                 expect(board.game_over(yellow_circle)).to be false
             end
         end
 
         context "When the board is full" do 
-            it "The game is over" do 
-                board.grid = [
+            before do 
+                board.instance_variable_set(:@grid, [
                     [red_circle, yellow_circle, red_circle, yellow_circle, red_circle, yellow_circle, red_circle],
-                    [red_circle, yellow_circle, red_circle, yellow_circle, red_circle, yellow_circle, red_circle],
-                    [red_circle, yellow_circle, red_circle, yellow_circle, red_circle, yellow_circle, red_circle],
+                    [yellow_circle, red_circle, yellow_circle, red_circle, yellow_circle, red_circle, yellow_circle],
+                    [yellow_circle, red_circle, yellow_circle, red_circle, yellow_circle, red_circle, yellow_circle],
                     [red_circle, yellow_circle, red_circle, yellow_circle, red_circle, yellow_circle, red_circle],
                     [red_circle, yellow_circle, red_circle, yellow_circle, red_circle, yellow_circle, red_circle],
                     [red_circle, yellow_circle, red_circle, yellow_circle, red_circle, yellow_circle, red_circle]
-                ]
+                ])
+            end
+            it "The game is over" do 
+                expect(board.game_over(red_circle)).to be true
+            end
+        end
 
+        context "Vertical Win Testing" do 
+            before do
+                board.instance_variable_set(:@grid, [
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [empty_circle, empty_circle, empty_circle, red_circle, red_circle, red_circle, red_circle]
+                ])
+            end
+
+            it "expect that the game is over" do 
                 expect(board.game_over(red_circle)).to be true
             end
         end

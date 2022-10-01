@@ -31,14 +31,25 @@ class Board
     end
 
     def game_over(piece)
-        return true if is_full?
-        false
+        binding.pry
+        is_full? || game_won?(piece)
     end
 
     def is_full?
-        @grid.any? do |row|
-            row.all? do |spot| 
-                spot == red_circle || spot == yellow_circle
+        @grid.all? do |row|
+            row.all? { |slot| slot == red_circle || slot == yellow_circle }
+        end
+    end
+
+    def game_won?(piece)
+        horizontal_win?(piece)
+    end
+
+    def horizontal_win?(piece)
+        grid.any? do |row|
+            row.each_cons(4) do |four_spots|
+                p four_spots
+                #return true if four_spots.all? { |spot| spot == piece }
             end
         end
     end
