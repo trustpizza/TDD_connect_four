@@ -36,8 +36,8 @@ describe Board do
 
     describe " #game_over" do
         context "When the board is NOT full" do 
-            it "The game is NOT over with empty board" do 
-                expect(board.game_over(red_circle)).to be false
+            xit "The game is NOT over with empty board" do 
+                expect(board.horizontal_win?(red_circle)).to be false
             end
         end
 
@@ -53,7 +53,7 @@ describe Board do
                 ])
             end
             it "The game is over" do 
-                expect(board.game_over(red_circle)).to be false
+                expect(board.game_over(red_circle)).to be true
             end
         end
 
@@ -71,6 +71,20 @@ describe Board do
 
             it "expect that the game is over" do 
                 expect(board.game_over(red_circle)).to be true
+            end
+        end
+
+        context "Vertical Win Testing" do
+            before do 
+                board.instance_variable_set(:grid, [
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [red_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [red_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [red_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                    [red_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle]
+                ])
+                end
             end
         end
     end
