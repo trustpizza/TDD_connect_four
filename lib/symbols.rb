@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Symbols
   def empty_circle
     "\e[0;37;49m●\e[0m"

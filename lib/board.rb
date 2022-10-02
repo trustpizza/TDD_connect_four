@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 require_relative 'symbols'
 require 'pry-byebug'
-include Symbols
 class Board
   attr_accessor :grid
 
@@ -18,7 +19,7 @@ class Board
 
   def find_row(row = 5, column)
     return row if grid[row][column] != red_circle && grid[row][column] != yellow_circle
-    return if row < 0
+    return if row.negative?
 
     find_row(row - 1, column)
   end
@@ -53,19 +54,18 @@ class Board
     false
   end
 
-  def vertical_win?(piece, column = 0, rows = [0,1,2,3])
-    #binding.pry
+  def vertical_win?(piece, column = 0, rows = [0, 1, 2, 3])
     return false if column == 7
     return true if rows.all? { |row| grid[row][column] == piece }
 
-    rows.map! { |row| row+= 1 }
+    rows.map! { |row| row += 1 }
 
-    if rows == [3,4,5,6]
-    vertical_win?(piece, column + 1) 
+    if rows == [3, 4, 5, 6]
+      vertical_win?(piece, column + 1)
     else
       vertical_win?(piece, column, rows)
     end
-  end 
+  end
 
   def diagnol_win?(piece)
     0.upto(3) do |row|
@@ -75,11 +75,13 @@ class Board
 
   def right_diagnols(piece, row, column = 0)
     return if column > 3
+
     @grid[row][column] == piece && @grid[row + 1][column + 1] == piece && @grid[row + 2][column + 2] == piece && @grid[row + 3][column + 3] == piece
   end
 
   def left_diagnols(piece, row, column = 3)
     return if column < 3
+
     @grid[row][column] == piece && @grid[row - 1][column - 1] == piece && @grid[row - 2][column - 2] == piece && @grid[row - 3][column - 3] == piece
   end
 end

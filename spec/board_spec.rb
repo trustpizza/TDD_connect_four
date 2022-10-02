@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../lib/board'
 require_relative '../lib/symbols'
 require 'rubocop'
@@ -96,7 +98,7 @@ describe Board do
                                        empty_circle],
                                       [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle,
                                        empty_circle, red_circle],
-                                      [red_circle,red_circle, empty_circle, empty_circle, empty_circle,
+                                      [red_circle, red_circle, empty_circle, empty_circle, empty_circle,
                                        empty_circle, red_circle],
                                       [red_circle, red_circle, empty_circle, empty_circle, empty_circle,
                                        empty_circle, red_circle],
@@ -105,26 +107,32 @@ describe Board do
                                     ])
       end
 
-      it 'A vertical row wins the game in the first column' do 
+      it 'A vertical row wins the game in the first column' do
         expect(board.game_won?(red_circle)).to be true
       end
     end
 
-    context 'Diagnol Win Testing' do 
+    context 'Diagnol Win Testing' do
       before do
         board.instance_variable_set(:@grid, [
-                                      [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
-                                      [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle,empty_circle],
-                                      [red_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
-                                      [empty_circle, red_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
-                                      [empty_circle, empty_circle, red_circle, empty_circle, empty_circle, empty_circle, empty_circle],
-                                      [empty_circle, empty_circle, empty_circle, red_circle, empty_circle, empty_circle, empty_circle]
+                                      [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle,
+                                       empty_circle, empty_circle],
+                                      [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle,
+                                       empty_circle, empty_circle],
+                                      [red_circle, empty_circle, empty_circle, empty_circle, empty_circle,
+                                       empty_circle, empty_circle],
+                                      [empty_circle, red_circle, empty_circle, empty_circle, empty_circle,
+                                       empty_circle, empty_circle],
+                                      [empty_circle, empty_circle, red_circle, empty_circle, empty_circle,
+                                       empty_circle, empty_circle],
+                                      [empty_circle, empty_circle, empty_circle, red_circle, empty_circle,
+                                       empty_circle, empty_circle]
                                     ])
-        end
+      end
 
-        it 'Diagnol wins the game' do
-          expect(board.game_won?(red_circle)).to be true
-        end
+      it 'Diagnol wins the game' do
+        expect(board.game_won?(red_circle)).to be true
       end
     end
+  end
 end
