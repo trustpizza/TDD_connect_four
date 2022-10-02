@@ -53,6 +53,3 @@ class Board
         false
     end
 end
-
-board = Board.new
-board.game_won?("\e[0;31;49m●\e[0m")
