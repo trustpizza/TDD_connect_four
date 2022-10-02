@@ -45,24 +45,11 @@ class Board
         horizontal = horizontal_win?(piece)
     end
 
-    def show_enum
-        grid.any? do |row|
-            row.each_cons(4) do |x| 
-                p 'true' if x.all? { |y| y == "\e[0;31;49m●\e[0m"}
-            end
-        end
-    end
-
-
     def horizontal_win?(piece)
         grid.any? do |row|
-            row.each_cons(4) do |four_spots|
-                return true if four_spots.all? do |spot|
-                    spot == 1
-                end
-            end
+            row.each_cons(4) {|four_spots| return true if four_spots.all?(piece)}
         end
-        #false
+        false
     end
 end
 

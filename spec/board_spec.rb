@@ -36,7 +36,7 @@ describe Board do
 
     describe " #game_over" do
         context "When the board is NOT full" do 
-            xit "The game is NOT over with empty board" do 
+            it "The game is NOT over with empty board" do 
                 expect(board.horizontal_win?(red_circle)).to be false
             end
         end
@@ -86,7 +86,6 @@ describe Board do
                 ])
                 end
             end
-        end
     end
 end
 
