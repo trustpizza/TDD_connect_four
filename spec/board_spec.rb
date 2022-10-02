@@ -69,8 +69,8 @@ describe Board do
                 ])
             end
 
-            it "expect that the game is over" do 
-                expect(board.game_over(red_circle)).to be true
+            it "expect that the game is over on the bottom row" do 
+                expect(board.horizontal_win?(red_circle)).to be true
             end
         end
 
