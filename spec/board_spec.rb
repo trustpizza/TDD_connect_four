@@ -113,7 +113,18 @@ describe Board do
     context 'Diagnol Win Testing' do 
       before do
         board.instance_variable_set(:@grid, [
-          
-        ])
-  end
+                                      [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                                      [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle,empty_circle],
+                                      [red_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                                      [empty_circle, red_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                                      [empty_circle, empty_circle, red_circle, empty_circle, empty_circle, empty_circle, empty_circle],
+                                      [empty_circle, empty_circle, empty_circle, red_circle, empty_circle, empty_circle, empty_circle]
+                                    ])
+        end
+
+        it 'Diagnol wins the game' do
+          expect(board.game_won?(red_circle)).to be true
+        end
+      end
+    end
 end

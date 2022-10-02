@@ -1,6 +1,6 @@
 require_relative 'symbols'
 require 'pry-byebug'
-
+include Symbols
 class Board
   attr_accessor :grid
 
@@ -41,7 +41,7 @@ class Board
   end
 
   def game_won?(piece)
-    horizontal_win?(piece) || vertical_win?(piece)
+    horizontal_win?(piece) || vertical_win?(piece) || diagnol_win?(piece)
   end
 
   def horizontal_win?(piece)
@@ -67,8 +67,19 @@ class Board
     end
   end 
 
-  def create_diagnols
-    diagnols = []
-    
-    
+  def diagnol_win?(piece)
+    0.upto(3) do |row|
+      return true if right_diagnols(piece, row) || left_diagnols(piece, row)
+    end
+  end
+
+  def right_diagnols(piece, row, column = 0)
+    return if column > 3
+    @grid[row][column] == piece && @grid[row + 1][column + 1] == piece && @grid[row + 2][column + 2] == piece && @grid[row + 3][column + 3] == piece
+  end
+
+  def left_diagnols(piece, row, column = 3)
+    return if column < 3
+    @grid[row][column] == piece && @grid[row - 1][column - 1] == piece && @grid[row - 2][column - 2] == piece && @grid[row - 3][column - 3] == piece
+  end
 end
