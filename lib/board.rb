@@ -31,7 +31,7 @@ class Board
     end
 
     def game_over(piece)
-        binding.pry
+        #binding.pry
         is_full? || game_won?(piece)
     end
 
@@ -48,12 +48,8 @@ class Board
     def horizontal_win?(piece)
         grid.any? do |row|
             row.each_cons(4) do |four_spots|
-                p four_spots
-                #return true if four_spots.all? { |spot| spot == piece }
+                return true if four_spots.all? { |spot| spot == piece} 
             end
         end
     end
 end
-
-game = Board.new
-game.display_board
