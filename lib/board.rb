@@ -41,7 +41,7 @@ class Board
   end
 
   def game_won?(piece)
-    horizontal = horizontal_win?(piece)
+    horizontal_win?(piece) || vertical_win?(piece)
   end
 
   def horizontal_win?(piece)
@@ -52,4 +52,23 @@ class Board
     end
     false
   end
+
+  def vertical_win?(piece, column = 0, rows = [0,1,2,3])
+    #binding.pry
+    return false if column == 7
+    return true if rows.all? { |row| grid[row][column] == piece }
+
+    rows.map! { |row| row+= 1 }
+
+    if rows == [3,4,5,6]
+    vertical_win?(piece, column + 1) 
+    else
+      vertical_win?(piece, column, rows)
+    end
+  end 
+
+  def create_diagnols
+    diagnols = []
+    
+    
 end

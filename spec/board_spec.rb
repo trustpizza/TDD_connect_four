@@ -83,27 +83,37 @@ describe Board do
       end
 
       it 'expect that the game is over on the bottom row' do
-        expect(board.horizontal_win?(red_circle)).to be true
+        expect(board.game_won?(red_circle)).to be true
       end
     end
 
     context 'Vertical Win Testing' do
       before do
-        board.instance_variable_set(:grid, [
+        board.instance_variable_set(:@grid, [
                                       [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle,
                                        empty_circle, empty_circle],
                                       [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle,
                                        empty_circle],
-                                      [red_circle, empty_circle, empty_circle, empty_circle, empty_circle,
-                                       empty_circle, empty_circle],
-                                      [red_circle, empty_circle, empty_circle, empty_circle, empty_circle,
-                                       empty_circle, empty_circle],
-                                      [red_circle, empty_circle, empty_circle, empty_circle, empty_circle,
-                                       empty_circle, empty_circle],
-                                      [red_circle, empty_circle, empty_circle, empty_circle, empty_circle,
-                                       empty_circle, empty_circle]
+                                      [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle,
+                                       empty_circle, red_circle],
+                                      [red_circle,red_circle, empty_circle, empty_circle, empty_circle,
+                                       empty_circle, red_circle],
+                                      [red_circle, red_circle, empty_circle, empty_circle, empty_circle,
+                                       empty_circle, red_circle],
+                                      [red_circle, red_circle, empty_circle, empty_circle, empty_circle,
+                                       empty_circle, red_circle]
                                     ])
       end
+
+      it 'A vertical row wins the game in the first column' do 
+        expect(board.game_won?(red_circle)).to be true
+      end
     end
+
+    context 'Diagnol Win Testing' do 
+      before do
+        board.instance_variable_set(:@grid, [
+          
+        ])
   end
 end
