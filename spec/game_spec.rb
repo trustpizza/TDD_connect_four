@@ -51,4 +51,19 @@ describe ConnectFour do
       end
     end
   end
+
+  describe "#play_round" do
+    before do 
+      game.setup
+      allow(game).to receive(:prompt)
+      allow(game).to receive(:current_player).and_return(game.p1)
+      allow(game).to receive(:ask_move).and_return(3)
+    end
+
+    it 'sends #place_piece to the board' do
+      allow(game.board).to receive(:display_board)
+      expect(game.board).to receive(:place_piece).with(3, game.current_player.piece)
+      game.play_round
+    end
+  end
 end
