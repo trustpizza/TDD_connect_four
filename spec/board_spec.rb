@@ -2,7 +2,6 @@
 
 require_relative '../lib/board'
 require_relative '../lib/symbols'
-require 'rubocop'
 
 describe Board do
   include Symbols

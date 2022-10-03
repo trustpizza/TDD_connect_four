@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'symbols'
-require 'pry-byebug'
+
 class Board
   attr_accessor :grid
 
