@@ -32,8 +32,7 @@ class Board
   end
 
   def game_over(piece)
-    true if is_full? || game_won?(piece)
-    false
+    is_full? || game_won?(piece)
   end
 
   def is_full?
@@ -43,7 +42,7 @@ class Board
   end
 
   def game_won?(piece)
-    horizontal_win?(piece) || vertical_win?(piece) || diagnol_win?(piece)
+    horizontal_win?(piece) || vertical_win?(piece) || diagonal_win?(piece)
   end
 
   def horizontal_win?(piece)
@@ -68,21 +67,46 @@ class Board
     end
   end
 
-  def diagnol_win?(piece)
-    0.upto(3) do |row|
-      return true if right_diagnols(piece, row) || left_diagnols(piece, row)
+  def diagonal_win?(symbol)
+    diagonals = create_diagonals
+
+    diagonals.any? do |diagonal_set|
+      diagonal_set.all? do |coords|
+        grid[coords[0]][coords[1]] == symbol
+      end
     end
   end
 
-  def right_diagnols(piece, row, column = 0)
-    return if column > 3
+  def create_diagonals
+    diagonals = []
 
-    @grid[row][column] == piece && @grid[row + 1][column + 1] == piece && @grid[row + 2][column + 2] == piece && @grid[row + 3][column + 3] == piece
+    grid.each_with_index do |row, row_idx|
+      row.each_index do |col_idx|
+        diagonals << right_diagonal([[row_idx, col_idx]])
+        diagonals << left_diagonal([[row_idx, col_idx]])
+      end
+    end
+
+    diagonals.reject! { |diagonal| diagonal.length < 4 }
   end
 
-  def left_diagnols(piece, row, column = 3)
-    return if column < 3
+  def right_diagonal(diagonal)
+    3.times do
+      unless diagonal[-1][0] == 5 || diagonal[-1][1] == 6
+        diagonal << [diagonal[-1][0] + 1, diagonal[-1][1] + 1]
+      end
+    end
 
-    @grid[row][column] == piece && @grid[row - 1][column - 1] == piece && @grid[row - 2][column - 2] == piece && @grid[row - 3][column - 3] == piece
+    diagonal
+  end
+
+  def left_diagonal(diagonal)
+    3.times do
+      unless diagonal[-1][0] == 5 || diagonal[-1][1] == 0
+        diagonal << [diagonal[-1][0] + 1, diagonal[-1][1] - 1]
+      end
+    end
+
+    diagonal
   end
 end

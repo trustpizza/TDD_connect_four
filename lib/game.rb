@@ -35,6 +35,26 @@ class ConnectFour
     end
   end
 
+  def play_game
+    setup
+    
+    until @board.game_over(current_player.piece)
+      @current_player = switch_player
+      play_round
+    end
+
+    conclusion
+  end
+
+  def switch_player
+    current_player == p1 ? p2 : p1
+  end
+
+  def conclusion
+    puts "PLayer #{current_player.number} Won!" if @board.game_won?(current_player.piece)
+    puts "Its a tie" if @board.is_full?
+  end
+
   def play_round
     prompt
     move = ask_move
@@ -43,8 +63,9 @@ class ConnectFour
   end
 
   def prompt
-    puts "\n#{current_player} pick a column"
+    puts "\nPlayer #{current_player.number} pick a column"
   end
-
-
 end
+
+game = ConnectFour.new
+game.play_game

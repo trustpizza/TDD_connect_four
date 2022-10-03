@@ -66,4 +66,57 @@ describe ConnectFour do
       game.play_round
     end
   end
+
+  describe "#switch_player" do 
+    before do 
+      game.setup
+      game.current_player = game.switch_player
+    end
+
+    it 'Current player is P2' do
+      expect(game.current_player).to be(game.p2)
+    end
+  end
+
+  describe "#board.game_over" do
+    context "False Test Cases" do
+      before do
+        game.setup
+      end
+
+
+      it 'Game is not over when you start' do
+        expect(game.board.game_over(game.current_player.piece)).to be(false)
+      end
+    end
+
+    context "True Test Cases" do
+      before do
+        game.setup
+        game.board.grid = [
+            [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle,
+             empty_circle, empty_circle],
+            [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle, empty_circle,
+             empty_circle],
+            [empty_circle, empty_circle, empty_circle, empty_circle, empty_circle,
+             empty_circle, red_circle],
+            [red_circle, red_circle, empty_circle, empty_circle, empty_circle,
+             empty_circle, red_circle],
+            [red_circle, red_circle, empty_circle, empty_circle, empty_circle,
+             empty_circle, red_circle],
+            [red_circle, red_circle, empty_circle, empty_circle, empty_circle,
+             empty_circle, red_circle]
+          ]
+
+      end
+
+      it '#game_win? method fires' do
+        expect(game.board.game_won?(game.current_player.piece)).to be(true)
+      end
+
+      it "game_over method fires" do
+        expect(game.board.game_over(game.current_player.piece)).to be(true)
+      end 
+    end
+  end
 end
