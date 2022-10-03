@@ -33,5 +33,3 @@ class ConnectFour
   end
 
 end
-
-ConnectFour.new

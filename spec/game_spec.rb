@@ -30,9 +30,23 @@ describe ConnectFour do
         allow(game).to receive(:gets).and_return('1\n')
       end
 
-      it "does not receive error message" do
+      it "does not receives error message" do
         error_message = "Pick Again between 1 and 7"
         expect(game).not_to receive(:puts).with(error_message)
+        game.ask_move
+      end
+    end
+
+    context 'when given an invalid move, then a valid move' do
+      before do 
+        letter = 'z'
+        valid_move = '5'
+        allow(game).to receive(:gets).and_return(letter, valid_move)
+      end
+      
+      it 'Returns one error message, then returns' do
+        error_message = "Pick Again between 1 and 7"
+        expect(game).to receive(:puts).with(error_message).once
         game.ask_move
       end
     end
