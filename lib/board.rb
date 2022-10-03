@@ -32,7 +32,8 @@ class Board
   end
 
   def game_over(piece)
-    is_full? || game_won?(piece)
+    true if is_full? || game_won?(piece)
+    false
   end
 
   def is_full?
